@@ -35,6 +35,8 @@ type ContainerManager interface {
 	CreateContainer(podSandboxID string, config *runtimeapi.ContainerConfig, sandboxConfig *runtimeapi.PodSandboxConfig) (string, error)
 	// StartContainer starts the container.
 	StartContainer(containerID string) error
+	// StartContainerFromCheckPoint starts the container From a checkpoint
+	StartContainerFromCheckpoint(containerID string, checkpoint string, checkpointDir string) error
 	// StopContainer stops a running container with a grace period (i.e., timeout).
 	StopContainer(containerID string, timeout int64) error
 	// RemoveContainer removes the container.

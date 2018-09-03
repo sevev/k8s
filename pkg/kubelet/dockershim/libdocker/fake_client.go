@@ -614,6 +614,10 @@ func (f *FakeDockerClient) StartContainer(id string) error {
 	return nil
 }
 
+func (f *FakeDockerClient) StartContainerFromCheckpoint(id string, checkpoint string, checkpointDir string) error {
+	return nil
+}
+
 // StopContainer is a test-spy implementation of Interface.StopContainer.
 // It adds an entry "stop" to the internal method call record.
 func (f *FakeDockerClient) StopContainer(id string, timeout time.Duration) error {

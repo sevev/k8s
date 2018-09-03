@@ -259,6 +259,27 @@ func (ds *dockerService) StartContainer(_ context.Context, r *runtimeapi.StartCo
 	return &runtimeapi.StartContainerResponse{}, nil
 }
 
+// StartContainer start the container from checkpoint
+func (ds *dockerService) StartContainerFromCheckpoint(_ context.Context, r *runtimeapi.StartContainerFromCheckpointRequest) (*runtimeapi.StartContainerResponse, error) {
+	err := ds.client.StartContainerFromCheckpoint(r.ContainerId, r.Checkpoint, r.CheckpointDir)
+
+	// Create container log symlink for all containers (including failed ones).
+	if linkError := ds.createContainerLogSymlink(r.ContainerId); linkError != nil {
+		// Do not stop the container if we failed to create symlink because:
+		//   1. This is not a critical failure.
+		//   2. We don't have enough information to properly stop container here.
+		// Kubelet will surface this error to user via an event.
+		return nil, linkError
+	}
+
+	if err != nil {
+		err = transformStartContainerError(err)
+		return nil, fmt.Errorf("failed to start container %q: %v", r.ContainerId, err)
+	}
+
+	return &runtimeapi.StartContainerResponse{}, nil
+}
+
 // StopContainer stops a running container with a grace period (i.e., timeout).
 func (ds *dockerService) StopContainer(_ context.Context, r *runtimeapi.StopContainerRequest) (*runtimeapi.StopContainerResponse, error) {
 	err := ds.client.StopContainer(r.ContainerId, time.Duration(r.Timeout)*time.Second)

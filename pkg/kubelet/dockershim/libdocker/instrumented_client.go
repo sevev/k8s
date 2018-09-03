@@ -101,6 +101,15 @@ func (in instrumentedInterface) StartContainer(id string) error {
 	return err
 }
 
+func (in instrumentedInterface) StartContainerFromCheckpoint(id string, checkpoint string, checkpointDir string) error {
+	const operation = "start_container_from_checkpoint"
+	defer recordOperation(operation, time.Now())
+
+	err := in.client.StartContainerFromCheckpoint(id, checkpoint, checkpointDir)
+	recordError(operation, err)
+	return err
+}
+
 func (in instrumentedInterface) StopContainer(id string, timeout time.Duration) error {
 	const operation = "stop_container"
 	defer recordOperation(operation, time.Now())

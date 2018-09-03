@@ -47,6 +47,8 @@ service RuntimeService {
     rpc CreateContainer(CreateContainerRequest) returns (CreateContainerResponse) {}
     // StartContainer starts the container.
     rpc StartContainer(StartContainerRequest) returns (StartContainerResponse) {}
+    // StartContainerFromCheckpoint starts the container.
+    rpc StartContainerFromCheckpoint(StartContainerFromCheckpointRequest) returns (StartContainerResponse) {}
     // StopContainer stops a running container with a grace period (i.e., timeout).
     // This call is idempotent, and must not return an error if the container has
     // already been stopped.
@@ -344,12 +346,6 @@ message PodSandboxConfig {
 message RunPodSandboxRequest {
     // Configuration for creating a PodSandbox.
     PodSandboxConfig config = 1;
-    // Named runtime configuration to use for this PodSandbox.
-    // If the runtime handler is unknown, this request should be rejected.  An
-    // empty string should select the default handler, equivalent to the
-    // behavior before this feature was added.
-    // See https://git.k8s.io/community/keps/sig-node/0014-runtime-class.md
-    string runtime_handler = 2;
 }
 
 message RunPodSandboxResponse {
@@ -744,6 +740,15 @@ message CreateContainerResponse {
 message StartContainerRequest {
     // ID of the container to start.
     string container_id = 1;
+}
+
+message StartContainerFromCheckpointRequest {
+    // ID of the container to start.
+    string container_id = 1;
+    // CheckpointID of the container to start
+    string checkpoint = 2;
+    // CheckpointDir of the container to start
+    string checkpoint_dir = 3;
 }
 
 message StartContainerResponse {}

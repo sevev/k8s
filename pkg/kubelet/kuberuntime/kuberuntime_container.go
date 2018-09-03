@@ -136,7 +136,13 @@ func (m *kubeGenericRuntimeManager) startContainer(podSandboxID string, podSandb
 	}
 
 	// Step 3: start the container.
-	err = m.runtimeService.StartContainer(containerID)
+	if checkpoint := pod.Annotations["checkpoint"]; checkpoint != "" {
+		checkpointDir := pod.Annotations["checkpointDir"]
+		err = m.runtimeService.StartContainerFromCheckpoint(containerID, checkpoint, checkpointDir)
+	} else {
+		err = m.runtimeService.StartContainer(containerID)
+	}
+	//err = m.runtimeService.StartContainer(containerID)
 	if err != nil {
 		m.recordContainerEvent(pod, container, containerID, v1.EventTypeWarning, events.FailedToStartContainer, "Error: %v", grpc.ErrorDesc(err))
 		return grpc.ErrorDesc(err), kubecontainer.ErrRunContainer
