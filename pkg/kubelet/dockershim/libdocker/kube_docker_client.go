@@ -166,6 +166,7 @@ func (d *kubeDockerClient) StartContainer(id string) error {
 	return err
 }
 
+// StartContainerFromCheckpoint start the container from checkpoint added by zhangqiang on Sep 3rd, 2018
 func (d *kubeDockerClient) StartContainerFromCheckpoint(id string, checkpoint string, checkpointDir string) error {
 	ctx, cancel := d.getTimeoutContext()
 	defer cancel()

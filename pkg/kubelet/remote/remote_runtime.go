@@ -213,7 +213,7 @@ func (r *RemoteRuntimeService) StartContainer(containerID string) error {
 	return nil
 }
 
-// StartContainerFromCheckpoint starts the containe from checkpoint
+// StartContainerFromCheckpoint starts the containe from checkpoint added by zhangqiang on Sep 3rd, 2018
 func (r *RemoteRuntimeService) StartContainerFromCheckpoint(containerID string, checkpoint string, checkpointDir string) error {
 	ctx, cancel := getContextWithTimeout(r.timeout)
 	defer cancel()

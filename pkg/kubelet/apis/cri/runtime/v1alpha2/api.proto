@@ -47,7 +47,7 @@ service RuntimeService {
     rpc CreateContainer(CreateContainerRequest) returns (CreateContainerResponse) {}
     // StartContainer starts the container.
     rpc StartContainer(StartContainerRequest) returns (StartContainerResponse) {}
-    // StartContainerFromCheckpoint starts the container.
+    // StartContainerFromCheckpoint starts the container added by zhangqiang on Sep 3rd 2018
     rpc StartContainerFromCheckpoint(StartContainerFromCheckpointRequest) returns (StartContainerResponse) {}
     // StopContainer stops a running container with a grace period (i.e., timeout).
     // This call is idempotent, and must not return an error if the container has
@@ -742,6 +742,7 @@ message StartContainerRequest {
     string container_id = 1;
 }
 
+// message of StartContainerFromCheckpointRequest added by zhangqiang on Sep 3rd, 2018
 message StartContainerFromCheckpointRequest {
     // ID of the container to start.
     string container_id = 1;

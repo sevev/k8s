@@ -259,7 +259,7 @@ func (ds *dockerService) StartContainer(_ context.Context, r *runtimeapi.StartCo
 	return &runtimeapi.StartContainerResponse{}, nil
 }
 
-// StartContainer start the container from checkpoint
+// StartContainerFromCheckpoint start the container from checkpoint added by zhangqiang on Sep 3rd, 2018
 func (ds *dockerService) StartContainerFromCheckpoint(_ context.Context, r *runtimeapi.StartContainerFromCheckpointRequest) (*runtimeapi.StartContainerResponse, error) {
 	err := ds.client.StartContainerFromCheckpoint(r.ContainerId, r.Checkpoint, r.CheckpointDir)
 

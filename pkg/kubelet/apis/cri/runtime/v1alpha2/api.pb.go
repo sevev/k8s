@@ -2016,6 +2016,7 @@ type StartContainerRequest struct {
 	ContainerId string `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
 }
 
+// StartContainerFromCheckpointRequest added by zhangqiang on Sep 3rd, 2018
 type StartContainerFromCheckpointRequest struct {
 	// ID of the container to start.
 	ContainerId string `protobuf:"bytes,1,opt,name=container_id,json=containerId,proto3" json:"container_id,omitempty"`
@@ -2026,10 +2027,12 @@ type StartContainerFromCheckpointRequest struct {
 }
 
 func (m *StartContainerRequest) Reset()                    { *m = StartContainerRequest{} }
-func (m *StartContainerFromCheckpointRequest) Reset()	         { *m = StartContainerFromCheckpointRequest{} }
 func (*StartContainerRequest) ProtoMessage()               {}
-func (*StartContainerFromCheckpointRequest) ProtoMessage()          {}
 func (*StartContainerRequest) Descriptor() ([]byte, []int) { return fileDescriptorApi, []int{43} }
+
+// Added by zhangqiang on Sept 3rd, 2018
+func (m *StartContainerFromCheckpointRequest) Reset()	         { *m = StartContainerFromCheckpointRequest{} }
+func (*StartContainerFromCheckpointRequest) ProtoMessage()          {}
 func (*StartContainerFromCheckpointRequest) Descriptor() ([]byte, []int) { return fileDescriptorApi, []int{102} }
 
 func (m *StartContainerRequest) GetContainerId() string {
@@ -2039,6 +2042,7 @@ func (m *StartContainerRequest) GetContainerId() string {
 	return ""
 }
 
+// Added by zhangqiang on Sept 3rd, 2018
 func (m *StartContainerFromCheckpointRequest) GetContainerId() string {
 	if m != nil {
 		return m.ContainerId
@@ -3749,6 +3753,7 @@ func init() {
 	proto.RegisterType((*MemoryUsage)(nil), "runtime.v1alpha2.MemoryUsage")
 	proto.RegisterType((*ReopenContainerLogRequest)(nil), "runtime.v1alpha2.ReopenContainerLogRequest")
 	proto.RegisterType((*ReopenContainerLogResponse)(nil), "runtime.v1alpha2.ReopenContainerLogResponse")
+	// Added by zhangqiang on Sept 3rd, 2018
 	proto.RegisterType((*StartContainerFromCheckpointRequest)(nil), "runtime.v1alpha2.StartContainerFromCheckpointRequest")
 	proto.RegisterEnum("runtime.v1alpha2.Protocol", Protocol_name, Protocol_value)
 	proto.RegisterEnum("runtime.v1alpha2.MountPropagation", MountPropagation_name, MountPropagation_value)
@@ -3797,7 +3802,7 @@ type RuntimeServiceClient interface {
 	CreateContainer(ctx context.Context, in *CreateContainerRequest, opts ...grpc.CallOption) (*CreateContainerResponse, error)
 	// StartContainer starts the container.
 	StartContainer(ctx context.Context, in *StartContainerRequest, opts ...grpc.CallOption) (*StartContainerResponse, error)
-	// StartContainerFromCheckpoint starts the container from a checkpoint
+	// StartContainerFromCheckpoint starts the container from a checkpoint added by zhangqiang on Sep 3rd, 2018
 	StartContainerFromCheckpoint(ctx context.Context, in *StartContainerFromCheckpointRequest, opts ...grpc.CallOption) (*StartContainerResponse, error)
 	// StopContainer stops a running container with a grace period (i.e., timeout).
 	// This call is idempotent, and must not return an error if the container has
@@ -3921,6 +3926,7 @@ func (c *runtimeServiceClient) StartContainer(ctx context.Context, in *StartCont
 	return out, nil
 }
 
+// Added by zhangqiang on Sep 3rd, 2018
 func (c *runtimeServiceClient) StartContainerFromCheckpoint(ctx context.Context, in *StartContainerFromCheckpointRequest, opts ...grpc.CallOption) (*StartContainerResponse, error) {
 	out := new(StartContainerResponse)
 	err := grpc.Invoke(ctx, "/runtime.v1alpha2.RuntimeService/StartContainerFromCheckpoint", in, out, c.cc, opts...)
@@ -4088,7 +4094,7 @@ type RuntimeServiceServer interface {
 	CreateContainer(context.Context, *CreateContainerRequest) (*CreateContainerResponse, error)
 	// StartContainer starts the container.
 	StartContainer(context.Context, *StartContainerRequest) (*StartContainerResponse, error)
-	// StartContainerFromCheckpoint starts the container from checkpoint
+	// StartContainerFromCheckpoint starts the container from checkpoint added by zhangqiang on Sep 3rd,2018
 	StartContainerFromCheckpoint(context.Context, *StartContainerFromCheckpointRequest) (*StartContainerResponse, error)
 	// StopContainer stops a running container with a grace period (i.e., timeout).
 	// This call is idempotent, and must not return an error if the container has
@@ -4280,6 +4286,7 @@ func _RuntimeService_StartContainer_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+// Added by zhangqiang on Sep 3rd, 2018
 func _RuntimeService_StartContainerFromCheckpoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(StartContainerFromCheckpointRequest)
 	if err := dec(in); err != nil {
@@ -4586,6 +4593,7 @@ var _RuntimeService_serviceDesc = grpc.ServiceDesc{
 			MethodName: "StartContainer",
 			Handler:    _RuntimeService_StartContainer_Handler,
 		},
+		// Added by zhangqiang on Sep 3rd, 2018
 		{
 			MethodName: "StartContainerFromCheckpoint",
 			Handler:    _RuntimeService_StartContainerFromCheckpoint_Handler, 
@@ -6863,6 +6871,7 @@ func (m *StartContainerRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
+// Added by zhangqiang on Sep 3rd, 2018
 func (m *StartContainerFromCheckpointRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -6887,6 +6896,7 @@ func (m *StartContainerRequest) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
+// Added by zhangqiang on Sept 3rd, 2018
 func (m *StartContainerFromCheckpointRequest) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
@@ -9948,6 +9958,7 @@ func (m *StartContainerRequest) Size() (n int) {
 	return n
 }
 
+// Added by zhangqiang on Sep 3rd, 2018
 func (m *StartContainerFromCheckpointRequest) Size() (n int) {
 	var l int
 	_ = l
@@ -11506,6 +11517,7 @@ func (this *StartContainerRequest) String() string {
 	}, "")
 	return s
 }
+// Added by zhangqiang on Sep 3rd, 2018
 func (this *StartContainerFromCheckpointRequest) String() string {
 	if this == nil {
 		return "nil"
@@ -19311,6 +19323,7 @@ func (m *StartContainerRequest) Unmarshal(dAtA []byte) error {
 	return nil
 }
 
+// Added by zhangqiang on Sep 3rd, 2018
 func (m *StartContainerFromCheckpointRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0

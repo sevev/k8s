@@ -95,7 +95,7 @@ func (in instrumentedRuntimeService) StartContainer(containerID string) error {
 	return err
 }
 
-// Start a container from a checkpoint
+// Start a container from a checkpoint added by zhangqiang on Sep 3rd, 2018
 func (in instrumentedRuntimeService) StartContainerFromCheckpoint(containerID string, checkpoint string, checkpointDir string) error {
 	const operation = "start_container_from_checkpoint"
 	defer recordOperation(operation, time.Now())
